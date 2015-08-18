@@ -2,6 +2,7 @@
 //
 
 #include <map>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -11,7 +12,7 @@
 
 using namespace std;
 
-#if defined (_WIN32) 
+#if defined (_WIN32)
   #if defined(unityVrpn_EXPORTS)
     #define UNITYVRPN_EXPORT __declspec(dllexport)
   #else
