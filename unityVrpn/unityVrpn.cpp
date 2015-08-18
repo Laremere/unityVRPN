@@ -11,6 +11,15 @@
 
 using namespace std;
 
+#if defined (_WIN32) 
+  #if defined(unityVrpn_EXPORTS)
+    #define UNITYVRPN_EXPORT __declspec(dllexport)
+  #else
+    #define UNITYVRPN_EXPORT __declspec(dllimport)
+  #endif /* UnityVrpn_EXPORTS */
+#else /* defined (_WIN32) */
+ #define UNITYVRPN_EXPORT
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Analog
@@ -33,7 +42,7 @@ void VRPN_CALLBACK handle_analog(void *userdata, vrpn_ANALOGCB b)
 map<string, stampedAnalog*> analogMap = map<string, stampedAnalog*>();
 
 
-extern "C" __declspec(dllexport) double vrpnAnalogExtern(char* _address, int channel, int frameCount){
+extern "C" UNITYVRPN_EXPORT double vrpnAnalogExtern(char* _address, int channel, int frameCount){
     string address = string(_address);
     stampedAnalog* ref = 0;
     try {
@@ -89,7 +98,7 @@ void VRPN_CALLBACK handle_tracker(void *userdata, vrpn_TRACKERCB b) {
 map<string, stampedTracker*> trackerMap = map<string, stampedTracker*>();
 
 
-extern "C" __declspec(dllexport) double vrpnTrackerExtern(char* _address, int channel, int component, int frameCount){
+extern "C" UNITYVRPN_EXPORT double vrpnTrackerExtern(char* _address, int channel, int component, int frameCount){
     string address = string(_address);
     stampedTracker* ref = 0;
     try {
@@ -142,7 +151,7 @@ void VRPN_CALLBACK handle_button(void *userdata, vrpn_BUTTONCB b)
 map<string, stampedButton*> buttonMap = map<string, stampedButton*>();
 
 
-extern "C" __declspec(dllexport) bool vrpnButtonExtern(char* _address, int channel, int frameCount){
+extern "C" UNITYVRPN_EXPORT bool vrpnButtonExtern(char* _address, int channel, int frameCount){
     string address = string(_address);
     stampedButton* ref = 0;
     try {
