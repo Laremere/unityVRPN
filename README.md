@@ -20,8 +20,9 @@ This gets rotation component of a tracker at the vrpn address and the channel.  
 
 Compiling
 ---------
-### Windows (Visual Studio)
-1. You need to have downloaded and built the vrpn source for the vrpn and quatlib projects.
-2. Copy the vrpn.lib and quat.lib files to the unityVrpn directory.
-3. Add the vrpn source directory to the Additional Include Directories.
-4. Build the project.
+```
+mkdir build
+cd build
+ccmake ../
+make
+```
