@@ -14,8 +14,7 @@ public class Tracker : MonoBehaviour
     [SerializeField]
     protected bool trackRotation = true;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (trackPosition)
         {

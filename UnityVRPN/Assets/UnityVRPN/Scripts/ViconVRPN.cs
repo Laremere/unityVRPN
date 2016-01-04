@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MMADLAB
+namespace MMADLab
 {
     public static class ViconVRPN
     {

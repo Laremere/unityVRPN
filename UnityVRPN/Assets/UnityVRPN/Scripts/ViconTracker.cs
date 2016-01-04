@@ -1,4 +1,4 @@
-﻿namespace MMADLAB
+﻿namespace MMADLab
 {
     public class ViconTracker : Tracker
     {

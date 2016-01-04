@@ -3,7 +3,7 @@ unityVRPN
 
 Simple VRPN wrapper for unity
 
-You can build the dll from scratch or use the download in the releases.
+You can build the dll from scratch or use the download in the releases. Or you can also just import the UnityVRPN Unity Package, or create your own from the UnityVRPN project.
 The dll must be placed in the Assets/Plugins folder to use.  Place VRPN.cs (found in the scriptForUnity folder in the source) in whatever assets folder you wish.  This will allow you to use the static VRPN class.
 
 -> public static double vrpnAnalog(string address, int channel)
