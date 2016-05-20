@@ -48,11 +48,8 @@ public class TrackerSettings : MonoBehaviour
         {
             trackPosition = value;
             StopCoroutine("Position");
-            if (trackPosition)
+            if (trackPosition && Application.isPlaying)
             {
-#if UNITY_EDITOR
-                return;
-#endif
                 StartCoroutine("Position");
             }
         }
@@ -65,11 +62,8 @@ public class TrackerSettings : MonoBehaviour
         {
             trackRotation = value;
             StopCoroutine("Rotation");
-            if (trackRotation)
+            if (trackRotation && Application.isPlaying)
             {
-#if UNITY_EDITOR
-                return;
-#endif
                 StartCoroutine("Rotation");
             }
         }
