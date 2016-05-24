@@ -1,11 +1,33 @@
-unityVRPN
+UnityVRPN
 =========
 
-Simple VRPN wrapper for unity
+Simple VRPN wrapper for Unity3D.
 
-You can build the dll from scratch or use the download in the releases. Or you can also just import the UnityVRPN Unity Package, or create your own from the UnityVRPN project.
-The dll must be placed in the Assets/Plugins folder to use.  Place VRPN.cs (found in the scriptForUnity folder in the source) in whatever assets folder you wish.  This will allow you to use the static VRPN class.
+You can build the plugin from scratch, or use the download in the releases, or use the Unity package in the releases which includes built plugins for Windows and Linux.
 
+Getting Started
+---------------
+1. Download and import the package.
+2. Add a TrackerHostSettings component to any object in the scene.
+    * Hostname: The IP address or hostname of the VRPN server.
+    * Type: Choose whether to transform the coordinates from the VRPN server for Vicon systems.
+3. Add a TrackerSettings component to any object you want to track with VRPN.
+    * Host Settings: The GameObject with the TrackerHostSettings component to want to use for this object.
+    * Object Name: The name of the tracker on the VRPN server.
+    * Channel: Channel on the server.
+
+Compiling
+---------
+Be sure to initialize/update the vrpn submodule in order to compile the plugin.
+```
+mkdir build
+cd build
+ccmake ../
+make
+```
+
+Reference
+---------
 -> public static double vrpnAnalog(string address, int channel)
 This gets an analog value from the vrpn address and the channel.  When first called with a new address, the vrpn connection will be created.  An address's values will be updated at most once per frame.
 
@@ -17,12 +39,3 @@ This gets position component of a tracker at the vrpn address and the channel.  
 
 -> public static Quaternion vrpnTrackerQuat(string address, int channel)
 This gets rotation component of a tracker at the vrpn address and the channel.  When first called with a new address, the vrpn connection will be created.  An address's values will be updated at most once per frame.
-
-Compiling
----------
-```
-mkdir build
-cd build
-ccmake ../
-make
-```
