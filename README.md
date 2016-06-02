@@ -3,7 +3,7 @@ UnityVRPN
 
 Simple VRPN wrapper for Unity3D.
 
-You can build the plugin from scratch, or use the download in the releases, or use the Unity package in the releases which includes built plugins for Windows and Linux.
+You can build the plugin from scratch, or use the download in the releases, or use the Unity package in the releases which includes built plugins for Windows, OS X, Linux, and Android.
 
 Getting Started
 ---------------
