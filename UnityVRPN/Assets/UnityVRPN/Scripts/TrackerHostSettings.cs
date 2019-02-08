@@ -11,9 +11,13 @@ namespace UnityVRPN
 
         private delegate Vector3 Position(string tracker, int channel);
         private delegate Quaternion Rotation(string tracker, int channel);
+        private delegate double Analog(string tracker, int channel);
+        private delegate bool Button(string tracker, int channel);
 
         private Position position;
         private Rotation rotation;
+        private Analog analog;
+        private Button button;
 
         public string Hostname
         {
@@ -33,6 +37,8 @@ namespace UnityVRPN
                     case TrackerPreset.Standard:
                         position = VRPN.vrpnTrackerPos;
                         rotation = VRPN.vrpnTrackerQuat;
+                        analog = VRPN.vrpnAnalog;
+                        button = VRPN.vrpnButton;
                         break;
                     case TrackerPreset.Vicon:
                         position = ViconVRPN.vrpnTrackerPos;
@@ -47,9 +53,19 @@ namespace UnityVRPN
             return position(tracker + "@" + hostname, channel);
         }
 
+        public double GetAnalog(string tracker, int channel)
+        {
+            return analog(tracker + "@" + hostname, channel);
+        }
+
         public Quaternion GetRotation(string tracker, int channel)
         {
             return rotation(tracker + "@" + hostname, channel);
+        }
+
+        public bool GetButton(string tracker, int channel)
+        {
+            return button(tracker + "@" + hostname, channel);
         }
 
         private void Awake()
