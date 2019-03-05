@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 
-public static class ViconVRPN
+namespace UnityVRPN
 {
-    public static Vector3 vrpnTrackerPos(string address, int channel)
+    public static class ViconVRPN
     {
-        var vector = VRPN.vrpnTrackerPos(address, channel);
-        return new Vector3(vector.x, vector.z, vector.y);
-    }
+        public static Vector3 vrpnTrackerPos(string address, int channel)
+        {
+            var vector = VRPN.vrpnTrackerPos(address, channel);
+            return new Vector3(vector.x, vector.z, vector.y);
+        }
 
-    public static Quaternion vrpnTrackerQuat(string address, int channel)
-    {
-        var quaternion = VRPN.vrpnTrackerQuat(address, channel);
-        return new Quaternion(quaternion.x, quaternion.z, quaternion.y, -quaternion.w);
+        public static Quaternion vrpnTrackerQuat(string address, int channel)
+        {
+            var quaternion = VRPN.vrpnTrackerQuat(address, channel);
+            return new Quaternion(quaternion.x, quaternion.z, quaternion.y, -quaternion.w);
+        }
     }
 }

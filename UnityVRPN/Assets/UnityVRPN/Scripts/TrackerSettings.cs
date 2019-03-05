@@ -1,102 +1,105 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrackerSettings : MonoBehaviour
+namespace UnityVRPN
 {
-    [SerializeField]
-    private TrackerHostSettings hostSettings;
-    [SerializeField]
-    private string objectName = "";
-    [SerializeField]
-    private int channel = 0;
-    [SerializeField]
-    private bool trackPosition = true;
-    [SerializeField]
-    private bool trackRotation = true;
-
-    public TrackerHostSettings HostSettings
+    public class TrackerSettings : MonoBehaviour
     {
-        get { return hostSettings; }
-        set
+        [SerializeField]
+        private TrackerHostSettings hostSettings;
+        [SerializeField]
+        private string objectName = "";
+        [SerializeField]
+        private int channel = 0;
+        [SerializeField]
+        private bool trackPosition = true;
+        [SerializeField]
+        private bool trackRotation = true;
+
+        public TrackerHostSettings HostSettings
         {
-            hostSettings = value;
+            get { return hostSettings; }
+            set
+            {
+                hostSettings = value;
+            }
         }
-    }
 
-    public string ObjectName
-    {
-        get { return objectName; }
-        set
+        public string ObjectName
         {
-            objectName = value;
+            get { return objectName; }
+            set
+            {
+                objectName = value;
+            }
         }
-    }
 
-    public int Channel
-    {
-        get { return channel; }
-        set
+        public int Channel
         {
-            channel = value;
+            get { return channel; }
+            set
+            {
+                channel = value;
+            }
         }
-    }
 
-    public bool TrackPosition
-    {
-        get { return trackPosition; }
-        set
+        public bool TrackPosition
         {
-            trackPosition = value;
-            StopCoroutine("Position");
-            if (trackPosition && Application.isPlaying)
+            get { return trackPosition; }
+            set
+            {
+                trackPosition = value;
+                StopCoroutine("Position");
+                if (trackPosition && Application.isPlaying)
+                {
+                    StartCoroutine("Position");
+                }
+            }
+        }
+
+        public bool TrackRotation
+        {
+            get { return trackRotation; }
+            set
+            {
+                trackRotation = value;
+                StopCoroutine("Rotation");
+                if (trackRotation && Application.isPlaying)
+                {
+                    StartCoroutine("Rotation");
+                }
+            }
+        }
+
+        private void Start()
+        {
+            if (trackPosition)
             {
                 StartCoroutine("Position");
             }
-        }
-    }
 
-    public bool TrackRotation
-    {
-        get { return trackRotation; }
-        set
-        {
-            trackRotation = value;
-            StopCoroutine("Rotation");
-            if (trackRotation && Application.isPlaying)
+            if (trackRotation)
             {
                 StartCoroutine("Rotation");
             }
         }
-    }
 
-    private void Start()
-    {
-        if (trackPosition)
+        private IEnumerator Position()
         {
-            StartCoroutine("Position");
+            while (true)
+            {
+                transform.position = hostSettings.GetPosition(objectName, channel);
+                yield return null;
+            }
         }
 
-        if (trackRotation)
+        private IEnumerator Rotation()
         {
-            StartCoroutine("Rotation");
-        }
-    }
-
-    private IEnumerator Position()
-    {
-        while (true)
-        {
-            transform.position = hostSettings.GetPosition(objectName, channel);
-            yield return null;
-        }
-    }
-
-    private IEnumerator Rotation()
-    {
-        while (true)
-        {
-            transform.rotation = hostSettings.GetRotation(objectName, channel);
-            yield return null;
+            while (true)
+            {
+                transform.rotation = hostSettings.GetRotation(objectName, channel);
+                yield return null;
+            }
         }
     }
 }

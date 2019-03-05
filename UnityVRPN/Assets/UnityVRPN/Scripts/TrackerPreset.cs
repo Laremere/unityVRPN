@@ -1,5 +1,8 @@
-﻿public enum TrackerPreset
+﻿namespace UnityVRPN
 {
-    Standard,
-    Vicon,
+    public enum TrackerPreset
+    {
+        Standard,
+        Vicon,
+    }
 }

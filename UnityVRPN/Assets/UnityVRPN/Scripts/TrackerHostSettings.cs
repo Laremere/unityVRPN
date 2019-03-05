@@ -1,57 +1,76 @@
 ﻿using UnityEngine;
 
-public class TrackerHostSettings : MonoBehaviour
+namespace UnityVRPN
 {
-    [SerializeField]
-    private string hostname = "localhost";
-    [SerializeField]
-    private TrackerPreset preset = TrackerPreset.Standard;
-
-    private delegate Vector3 Position(string tracker, int channel);
-    private delegate Quaternion Rotation(string tracker, int channel);
-
-    private Position position;
-    private Rotation rotation;
-
-    public string Hostname
+    public class TrackerHostSettings : MonoBehaviour
     {
-        get { return hostname; }
-        set { hostname = value; }
-    }
+        [SerializeField]
+        private string hostname = "localhost";
+        [SerializeField]
+        private TrackerPreset preset = TrackerPreset.Standard;
 
-    public TrackerPreset Preset
-    {
-        get { return preset; }
-        set
+        private delegate Vector3 Position(string tracker, int channel);
+        private delegate Quaternion Rotation(string tracker, int channel);
+        private delegate double Analog(string tracker, int channel);
+        private delegate bool Button(string tracker, int channel);
+
+        private Position position;
+        private Rotation rotation;
+        private Analog analog;
+        private Button button;
+
+        public string Hostname
         {
-            preset = value;
+            get { return hostname; }
+            set { hostname = value; }
+        }
 
-            switch (preset)
+        public TrackerPreset Preset
+        {
+            get { return preset; }
+            set
             {
-                case TrackerPreset.Standard:
-                    position = VRPN.vrpnTrackerPos;
-                    rotation = VRPN.vrpnTrackerQuat;
-                    break;
-                case TrackerPreset.Vicon:
-                    position = ViconVRPN.vrpnTrackerPos;
-                    rotation = ViconVRPN.vrpnTrackerQuat;
-                    break;
+                preset = value;
+
+                switch (preset)
+                {
+                    case TrackerPreset.Standard:
+                        position = VRPN.vrpnTrackerPos;
+                        rotation = VRPN.vrpnTrackerQuat;
+                        analog = VRPN.vrpnAnalog;
+                        button = VRPN.vrpnButton;
+                        break;
+                    case TrackerPreset.Vicon:
+                        position = ViconVRPN.vrpnTrackerPos;
+                        rotation = ViconVRPN.vrpnTrackerQuat;
+                        break;
+                }
             }
         }
-    }
 
-    public Vector3 GetPosition(string tracker, int channel)
-    {
-        return position(tracker + "@" + hostname, channel);
-    }
+        public Vector3 GetPosition(string tracker, int channel)
+        {
+            return position(tracker + "@" + hostname, channel);
+        }
 
-    public Quaternion GetRotation(string tracker, int channel)
-    {
-        return rotation(tracker + "@" + hostname, channel);
-    }
+        public double GetAnalog(string tracker, int channel)
+        {
+            return analog(tracker + "@" + hostname, channel);
+        }
 
-    private void Awake()
-    {
-        Preset = preset;
+        public Quaternion GetRotation(string tracker, int channel)
+        {
+            return rotation(tracker + "@" + hostname, channel);
+        }
+
+        public bool GetButton(string tracker, int channel)
+        {
+            return button(tracker + "@" + hostname, channel);
+        }
+
+        private void Awake()
+        {
+            Preset = preset;
+        }
     }
 }
