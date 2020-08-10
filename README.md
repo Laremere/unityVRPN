@@ -1,3 +1,5 @@
+THIS PROJECT IS NO LONGER MAINTAINED.  Sorry but I no longer work in this area.  Some forks may be more active.  
+
 unityVRPN
 =========
 
